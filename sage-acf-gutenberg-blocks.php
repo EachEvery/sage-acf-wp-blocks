@@ -71,6 +71,7 @@ add_action('acf/init', function () {
                     'supports_align_text' => 'SupportsAlignText',
                     'supports_align_content' => 'SupportsAlignContent',
                     'supports_multiple' => 'SupportsMultiple',
+                    'supports_example' => 'SupportsExample',
                     'enqueue_style'     => 'EnqueueStyle',
                     'enqueue_script'    => 'EnqueueScript',
                     'enqueue_assets'    => 'EnqueueAssets',
@@ -108,6 +109,12 @@ add_action('acf/init', function () {
                     'enqueue_script'  => $file_headers['enqueue_script'],
                     'enqueue_assets'  => $file_headers['enqueue_assets'],
                 ];
+
+                if (!empty($file_headers['supports_example'])) {
+                    if($file_headers['supports_example'] === 'true') {
+                        $data['example'] = ['attributes' => [ 'mode' => 'preview', 'data' => [ 'renderForBlockPreview' => true, 'blockSlug' => $slug ] ]];
+                    }
+                }
 
                 // If the PostTypes header is set in the template, restrict this block to those types
                 if (!empty($file_headers['post_types'])) {
